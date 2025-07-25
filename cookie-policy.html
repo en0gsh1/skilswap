@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Storage & Tracking Policy - SkillSwap</title>
+<link rel="icon" type="image/png" href="imgs/homelogo.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/chat-widget.css">
+<link rel="stylesheet" href="css/loading.css">
+<style>
+.legal-document {
+    padding: 8rem 0 4rem;
+    background: var(--color-1);
+    min-height: 100vh;
+}
+
+.legal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--color-2);
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: var(--transition-theme);
+}
+
+[data-theme="dark"] .legal-content {
+    background: var(--color-2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.legal-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--color-3);
+}
+
+.legal-title {
+    font-size: 2.5rem;
+    color: var(--color-4);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.legal-subtitle {
+    color: var(--color-3);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.last-updated {
+    color: var(--color-4);
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.legal-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    color: var(--color-4);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-3);
+}
+
+.legal-text {
+    color: var(--color-4);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.legal-list {
+    color: var(--color-4);
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.legal-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.highlight-box {
+    background: var(--color-3);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+}
+
+.info-box {
+    background: var(--color-1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+    border-left: 4px solid var(--color-3);
+}
+
+[data-theme="dark"] .info-box {
+    background: #0a0f1a;
+}
+
+.storage-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--color-1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .storage-table {
+    background: #0a0f1a;
+}
+
+.storage-table th,
+.storage-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-3);
+    color: var(--color-4);
+}
+
+.storage-table th {
+    background: var(--color-3);
+    color: white;
+    font-weight: 600;
+}
+
+.storage-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.storage-essential {
+    background: #28a745;
+    color: white;
+}
+
+.storage-functional {
+    background: #17a2b8;
+    color: white;
+}
+
+.storage-analytics {
+    background: #ffc107;
+    color: #212529;
+}
+
+.storage-marketing {
+    background: #dc3545;
+    color: white;
+}
+
+.contact-info-box {
+    background: var(--color-1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+    border-left: 4px solid var(--color-3);
+}
+
+[data-theme="dark"] .contact-info-box {
+    background: #0a0f1a;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-3);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--color-4);
+    transform: translateX(-5px);
+}
+
+.control-buttons {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-clear {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-clear:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+.btn-manage {
+    background: var(--color-3);
+    color: white;
+}
+
+.btn-manage:hover {
+    background: var(--color-4);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .legal-content {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .legal-title {
+        font-size: 2rem;
+    }
+    
+    .legal-document {
+        padding: 6rem 0 2rem;
+    }
+    
+    .storage-table {
+        font-size: 0.9rem;
+    }
+    
+    .storage-table th,
+    .storage-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .control-buttons {
+        flex-direction: column;
+    }
+    
+    .control-btn {
+        width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+<div class="container">
+<div class="nav-brand">
+<a href="index.html" class="logo-link">
+<img src="imgs/homelogo.png" alt="SkillSwap Logo" class="logo">
+</a>
+</div>
+<nav class="nav-links">
+<a href="courses.html">Courses</a>
+<a href="testimonials.html">Testimonials</a>
+<a href="video-courses.html">Video Courses</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact Us</a>
+
+<a href="pricing.html" class="pricing-btn">Pricing</a>
+<div class="theme-toggle">
+<button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+<div class="theme-toggle-slider" id="theme-slider">
+<span class="theme-icon">☀️</span>
+</div>
+</button>
+</div>
+</nav>
+</div>
+</header>
+
+<!-- Cookie Policy Content -->
+<section class="legal-document">
+<div class="container">
+<div class="legal-content">
+<a href="index.html" class="back-link">
+<i class="fas fa-arrow-left"></i>
+Back to Home
+</a>
+
+<div class="legal-header">
+<h1 class="legal-title">Local Storage & Tracking Policy</h1>
+<p class="legal-subtitle">SkillSwap Learning Platform</p>
+<p class="last-updated">Last Updated: December 2024</p>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">1. Introduction</h2>
+<p class="legal-text">
+This Local Storage & Tracking Policy explains how SkillSwap uses browser local storage, session storage, and other tracking technologies to enhance your learning experience. While we don't use traditional cookies, we do store information locally on your device and track certain user metrics.
+</p>
+<div class="highlight-box">
+<strong>Important Note:</strong> We use local storage instead of cookies to store your preferences and session data. This information stays on your device and helps us provide a better user experience.
+</div>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">2. What We Store Locally</h2>
+<p class="legal-text">
+We use your browser's local storage to save information that enhances your experience on our platform:
+</p>
+
+<table class="storage-table">
+<thead>
+<tr>
+<th>Storage Type</th>
+<th>Purpose</th>
+<th>Data Stored</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="storage-type storage-essential">Essential</span></td>
+<td>User Authentication</td>
+<td>Login tokens, session data</td>
+<td>Until logout</td>
+</tr>
+<tr>
+<td><span class="storage-type storage-functional">Functional</span></td>
+<td>Theme Preferences</td>
+<td>Dark/light mode setting</td>
+<td>Persistent</td>
+</tr>
+<tr>
+<td><span class="storage-type storage-functional">Functional</span></td>
+<td>Language Settings</td>
+<td>Selected language preference</td>
+<td>Persistent</td>
+</tr>
+<tr>
+<td><span class="storage-type storage-functional">Functional</span></td>
+<td>Course Progress</td>
+<td>Completed lessons, bookmarks</td>
+<td>Until cleared</td>
+</tr>
+<tr>
+<td><span class="storage-type storage-analytics">Analytics</span></td>
+<td>Usage Tracking</td>
+<td>Visit timestamps, page views</td>
+<td>30 days</td>
+</tr>
+<tr>
+<td><span class="storage-type storage-functional">Functional</span></td>
+<td>Form Data</td>
+<td>Draft submissions, preferences</td>
+<td>Until submitted</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">3. User Tracking and Analytics</h2>
+<p class="legal-text">
+We collect anonymized analytics data to improve our platform and understand user behavior. This tracking does NOT include:
+</p>
+<ul class="legal-list">
+<li><strong>Exact Location:</strong> We do not track your precise geographic location</li>
+<li><strong>Personal Identification:</strong> Analytics data is aggregated and anonymized</li>
+<li><strong>Cross-Site Tracking:</strong> We only track activity on our platform</li>
+</ul>
+
+<p class="legal-text">
+What we DO track:
+</p>
+<ul class="legal-list">
+<li><strong>User Count:</strong> Total number of active users on the platform</li>
+<li><strong>Subscription Data:</strong> Plan types, upgrade patterns (anonymized)</li>
+<li><strong>Daily Activity:</strong> Login frequency, course engagement, feature usage</li>
+<li><strong>Platform Performance:</strong> Page load times, error rates, system performance</li>
+<li><strong>Learning Progress:</strong> Course completion rates, skill development metrics</li>
+<li><strong>General Location:</strong> Country/region for service optimization (not exact location)</li>
+</ul>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">4. Types of Local Storage We Use</h2>
+
+<div class="info-box">
+<h3 style="color: var(--color-4); margin-bottom: 1rem;">🔧 Essential Storage</h3>
+<p class="legal-text">
+Required for basic platform functionality. Cannot be disabled without affecting core features.
+</p>
+<ul class="legal-list">
+<li>User authentication tokens</li>
+<li>Session management data</li>
+<li>Security preferences</li>
+<li>Account settings</li>
+</ul>
+</div>
+
+<div class="info-box">
+<h3 style="color: var(--color-4); margin-bottom: 1rem;">⚙️ Functional Storage</h3>
+<p class="legal-text">
+Enhances your user experience by remembering your preferences and settings.
+</p>
+<ul class="legal-list">
+<li>Theme preferences (dark/light mode)</li>
+<li>Language selection</li>
+<li>Course bookmarks and progress</li>
+<li>Interface customizations</li>
+<li>Form auto-save data</li>
+</ul>
+</div>
+
+<div class="info-box">
+<h3 style="color: var(--color-4); margin-bottom: 1rem;">📊 Analytics Storage</h3>
+<p class="legal-text">
+Helps us understand how users interact with our platform to improve services.
+</p>
+<ul class="legal-list">
+<li>Page visit counters</li>
+<li>Feature usage statistics</li>
+<li>Performance metrics</li>
+<li>Error reporting data</li>
+<li>User engagement patterns</li>
+</ul>
+</div>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">5. How Long We Store Data</h2>
+<p class="legal-text">
+Different types of locally stored data have different retention periods:
+</p>
+<ul class="legal-list">
+<li><strong>Session Data:</strong> Cleared when you log out or close your browser</li>
+<li><strong>Preferences:</strong> Stored until you manually clear them or change settings</li>
+<li><strong>Course Progress:</strong> Stored until you complete the course or clear your data</li>
+<li><strong>Analytics Data:</strong> Automatically cleared after 30 days</li>
+<li><strong>Cached Content:</strong> Cleared periodically or when storage limits are reached</li>
+</ul>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">6. Managing Your Local Storage</h2>
+<p class="legal-text">
+You have full control over the data stored locally on your device:
+</p>
+
+<div class="control-buttons">
+<button class="control-btn btn-clear" onclick="clearAllLocalStorage()">
+<i class="fas fa-trash"></i> Clear All Local Data
+</button>
+<button class="control-btn btn-manage" onclick="openStorageManager()">
+<i class="fas fa-cog"></i> Manage Storage Settings
+</button>
+</div>
+
+<h3 style="color: var(--color-4); margin: 1.5rem 0 1rem 0;">Browser-Level Controls:</h3>
+<ul class="legal-list">
+<li><strong>Chrome:</strong> Settings > Privacy and Security > Site Settings > Storage</li>
+<li><strong>Firefox:</strong> Settings > Privacy & Security > Cookies and Site Data</li>
+<li><strong>Safari:</strong> Preferences > Privacy > Manage Website Data</li>
+<li><strong>Edge:</strong> Settings > Site Permissions > Cookies and Site Data</li>
+</ul>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">7. Third-Party Analytics</h2>
+<p class="legal-text">
+We may use third-party analytics services to better understand user behavior:
+</p>
+<ul class="legal-list">
+<li><strong>Google Analytics:</strong> Website traffic and user behavior analysis</li>
+<li><strong>Performance Monitoring:</strong> Error tracking and performance optimization</li>
+<li><strong>User Feedback Tools:</strong> Survey and feedback collection platforms</li>
+</ul>
+<p class="legal-text">
+These services may use their own tracking technologies. You can opt out of Google Analytics by installing the Google Analytics Opt-out Browser Add-on.
+</p>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">8. Mobile App Storage</h2>
+<p class="legal-text">
+If you use our mobile application, we may store similar data locally on your device:
+</p>
+<ul class="legal-list">
+<li>App preferences and settings</li>
+<li>Offline course content</li>
+<li>User authentication data</li>
+<li>Usage analytics (anonymized)</li>
+</ul>
+<p class="legal-text">
+You can manage this data through your device's app settings or by uninstalling the application.
+</p>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">9. Data Security</h2>
+<p class="legal-text">
+We implement security measures to protect locally stored data:
+</p>
+<ul class="legal-list">
+<li><strong>Encryption:</strong> Sensitive data is encrypted before local storage</li>
+<li><strong>Access Controls:</strong> Data is only accessible by our platform</li>
+<li><strong>Regular Cleanup:</strong> Automatic removal of expired or unnecessary data</li>
+<li><strong>Secure Transmission:</strong> All data transfers use HTTPS encryption</li>
+</ul>
+</div>
+
+<div class="legal-section">
+<h2 class="section-title">10. Updates to This Policy</h2>
+<p class="legal-text">
+We may update this Local Storage & Tracking Policy to reflect changes in our practices or legal requirements. We will notify you of significant changes by:
+</p>
+<ul class="legal-list">
+<li>Posting an updated policy on our website</li>
+<li>Sending email notifications to registered users</li>
+<li>Displaying a notice on our platform</li>
+</ul>
+</div>
+
+<div class="contact-info-box">
+<h3 style="color: var(--color-4); margin-bottom: 1rem;">Questions About Local Storage?</h3>
+<p class="legal-text">
+If you have questions about our local storage practices or need help managing your data, contact us:
+</p>
+<ul class="legal-list">
+<li><strong>Privacy Team:</strong> privacy@skillswap.com</li>
+<li><strong>Technical Support:</strong> support@skillswap.com</li>
+<li><strong>General Contact:</strong> info@skillswap.com</li>
+<li><strong>Phone:</strong> +1 (555) 123-4567</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="imgs/homelogo.png" alt="SkillSwap Logo" class="footer-logo-img">
+                    <h3>SkillSwap</h3>
+                </div>
+                <p class="footer-description">
+                    Learn new skills online with our comprehensive courses and expert instructors.
+                </p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="video-courses.html">Video Courses</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="cookie-policy.html">Local Storage Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@skillswap.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>801 5th Ave Suite 2100, Seattle, WA 98104, US</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>© 2024 SkillSwap. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="terms-of-service.html">Terms of Service</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="cookie-policy.html">Local Storage Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="js/header.js"></script>
+<script>
+// Local Storage Management Functions
+function clearAllLocalStorage() {
+    if (confirm('Are you sure you want to clear all locally stored data? This will log you out and reset all your preferences.')) {
+        localStorage.clear();
+        sessionStorage.clear();
+        alert('All local data has been cleared. The page will now reload.');
+        window.location.reload();
+    }
+}
+
+function openStorageManager() {
+    // This would open a modal or redirect to a storage management page
+    alert('Storage management interface would open here. This feature allows you to selectively manage different types of stored data.');
+}
+
+// Display current storage usage
+function displayStorageInfo() {
+    const storageInfo = document.createElement('div');
+    storageInfo.className = 'info-box';
+    storageInfo.innerHTML = `
+        <h3 style="color: var(--color-4); margin-bottom: 1rem;">📊 Current Storage Usage</h3>
+        <p class="legal-text">
+            <strong>Local Storage Items:</strong> ${localStorage.length}<br>
+            <strong>Session Storage Items:</strong> ${sessionStorage.length}<br>
+            <strong>Estimated Size:</strong> ${estimateStorageSize()} KB
+        </p>
+    `;
+    
+    const controlButtons = document.querySelector('.control-buttons');
+    if (controlButtons) {
+        controlButtons.parentNode.insertBefore(storageInfo, controlButtons);
+    }
+}
+
+function estimateStorageSize() {
+    let total = 0;
+    for (let key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+            total += localStorage[key].length + key.length;
+        }
+    }
+    for (let key in sessionStorage) {
+        if (sessionStorage.hasOwnProperty(key)) {
+            total += sessionStorage[key].length + key.length;
+        }
+    }
+    return Math.round(total / 1024 * 100) / 100; // Convert to KB
+}
+
+// Initialize storage info display
+document.addEventListener('DOMContentLoaded', function() {
+    displayStorageInfo();
+});
+</script>
+
+<script src="js/header.js"></script>
+<script src="js/translations.js"></script>
+<script src="js/translator.js"></script>
+<script src="js/main.js"></script>
+<script src="js/chat-widget.js"></script>
+</body>
+</html>

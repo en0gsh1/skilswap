@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login - SkillSwap</title>
+<link rel="icon" type="image/png" href="imgs/homelogo.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+<script src="js/visit-tracker.js"></script>
+</head>
+<body>
+<!-- Loading Screen -->
+<div id="loading-screen">
+<div class="loading-text">
+<span>A</span><span>d</span><span>m</span><span>i</span><span>n</span>
+</div>
+</div>
+
+<!-- Main Content -->
+<div id="main-content" style="display: none;">
+<!-- Header -->
+<header class="header">
+<div class="container">
+<div class="nav-brand">
+<a href="index.html" class="logo-link">
+<img src="imgs/homelogo.png" alt="SkillSwap Logo" class="logo">
+</a>
+</div>
+<div class="header-right">
+<div class="theme-toggle">
+<button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+<div class="theme-toggle-slider" id="theme-slider">
+<span class="theme-icon">☀️</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</header>
+
+<!-- Admin Login Section -->
+<section class="admin-login">
+<div class="admin-overlay"></div>
+<div class="admin-container">
+<div class="admin-card">
+<div class="admin-header">
+<div class="admin-icon">🔐</div>
+<h1 class="admin-title">Admin Access</h1>
+<p class="admin-subtitle">Enter your PIN to access the admin dashboard</p>
+</div>
+
+<form class="admin-form" id="admin-form">
+<div class="pin-input-container">
+<label for="pin-input" class="pin-label">Admin PIN</label>
+<div class="pin-display" id="pin-display">
+<div class="pin-dot"></div>
+<div class="pin-dot"></div>
+<div class="pin-dot"></div>
+<div class="pin-dot"></div>
+</div>
+<input type="password" id="pin-input" class="pin-input" maxlength="4" placeholder="Enter 4-digit PIN">
+</div>
+
+<div class="keypad">
+<button type="button" class="keypad-btn" data-number="1">1</button>
+<button type="button" class="keypad-btn" data-number="2">2</button>
+<button type="button" class="keypad-btn" data-number="3">3</button>
+<button type="button" class="keypad-btn" data-number="4">4</button>
+<button type="button" class="keypad-btn" data-number="5">5</button>
+<button type="button" class="keypad-btn" data-number="6">6</button>
+<button type="button" class="keypad-btn" data-number="7">7</button>
+<button type="button" class="keypad-btn" data-number="8">8</button>
+<button type="button" class="keypad-btn" data-number="9">9</button>
+<button type="button" class="keypad-btn clear-btn" data-action="clear">Clear</button>
+<button type="button" class="keypad-btn" data-number="0">0</button>
+<button type="button" class="keypad-btn backspace-btn" data-action="backspace">⌫</button>
+</div>
+
+<div class="admin-actions">
+<button type="submit" class="login-btn" id="login-btn">
+<span class="btn-text">Access Dashboard</span>
+<span class="btn-loading" style="display: none;">
+<div class="spinner"></div>
+Verifying...
+</span>
+</button>
+</div>
+
+<div class="error-message" id="error-message" style="display: none;">
+<span class="error-icon">⚠️</span>
+<span class="error-text">Invalid PIN. Please try again.</span>
+</div>
+</form>
+
+<div class="admin-footer">
+<p class="security-note">
+<span class="security-icon">🛡️</span>
+Secure admin access protected by encryption
+</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- Success Modal -->
+<div class="success-modal" id="success-modal" style="display: none;">
+<div class="success-content">
+<div class="success-icon">✅</div>
+<h2>Access Granted!</h2>
+<p>Redirecting to admin dashboard...</p>
+<div class="success-progress">
+<div class="progress-bar"></div>
+</div>
+</div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

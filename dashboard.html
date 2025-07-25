@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="imgs/homelogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+.dashboard-container {
+    min-height: 100vh;
+    background: var(--color-1);
+    padding-top: 100px;
+    transition: var(--transition-theme);
+}
+
+.dashboard-header {
+    background: var(--color-1);
+    padding: 2rem 0;
+    border-bottom: 2px solid var(--color-2);
+    margin-bottom: 2rem;
+    transition: var(--transition-theme);
+}
+
+.dashboard-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.dashboard-title {
+    color: var(--color-4);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    transition: var(--transition-theme);
+}
+
+.admin-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logout-btn, .export-btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+}
+
+.logout-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+.export-btn {
+    background: var(--color-3);
+    color: white;
+}
+
+.export-btn:hover {
+    background: var(--color-4);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 98, 138, 0.4);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+    justify-items: center;
+}
+
+.stat-card {
+    background: var(--color-1);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 2px solid var(--color-2);
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+[data-theme="dark"] .stat-card {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .stat-card:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.stat-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-3);
+    margin-bottom: 0.5rem;
+    transition: var(--transition-theme);
+    display: block;
+    text-align: center;
+}
+
+.stat-label {
+    color: var(--color-4);
+    font-weight: 500;
+    opacity: 0.8;
+    transition: var(--transition-theme);
+    display: block;
+    text-align: center;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.chart-card {
+    background: var(--color-1);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 2px solid var(--color-2);
+    transition: var(--transition-theme);
+    overflow: hidden;
+}
+
+[data-theme="dark"] .chart-card {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.chart-title {
+    color: var(--color-4);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    transition: var(--transition-theme);
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.chart-container canvas {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}
+
+.pie-chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.pie-chart-container canvas {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}
+
+.recent-activity {
+    background: var(--color-1);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 2px solid var(--color-2);
+    transition: var(--transition-theme);
+}
+
+[data-theme="dark"] .recent-activity {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-2);
+    transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+    background: var(--color-2);
+    border-radius: 8px;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.activity-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-title {
+    color: var(--color-4);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    transition: var(--transition-theme);
+}
+
+.activity-time {
+    color: var(--color-3);
+    font-size: 0.85rem;
+    opacity: 0.8;
+    transition: var(--transition-theme);
+}
+
+.summary-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-2);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-item .stat-label {
+    color: var(--color-4);
+    font-weight: 500;
+    transition: var(--transition-theme);
+}
+
+.stat-item .stat-value {
+    color: var(--color-3);
+    font-weight: 600;
+    transition: var(--transition-theme);
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-content {
+    background: var(--color-1);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    color: var(--color-4);
+    transition: var(--transition-theme);
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--color-2);
+    border-top: 4px solid var(--color-3);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.access-denied {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--color-4);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.access-denied h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    transition: var(--transition-theme);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .chart-container {
+        height: 350px;
+    }
+    
+    .pie-chart-container {
+        height: 280px;
+    }
+}
+
+@media (max-width: 992px) {
+    .dashboard-container {
+        padding-top: 120px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        justify-items: center;
+    }
+    
+    .stat-card {
+        padding: 1.5rem;
+        max-width: 280px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .stat-icon {
+        font-size: 2.5rem;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+    
+    .pie-chart-container {
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding-top: 140px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .dashboard-header {
+        padding: 1.5rem 0;
+    }
+    
+    .dashboard-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    .dashboard-title {
+        font-size: 2rem;
+        order: 1;
+    }
+    
+    .admin-actions {
+        justify-content: center;
+        order: 2;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+        justify-items: center;
+    }
+    
+    .stat-card {
+        padding: 1.5rem 1rem;
+        max-width: 100%;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .stat-icon {
+        font-size: 2.2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    
+    .charts-grid {
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .chart-card, .recent-activity {
+        padding: 1.5rem;
+    }
+    
+    .chart-container {
+        height: 280px;
+    }
+    
+    .pie-chart-container {
+        height: 220px;
+    }
+    
+    .chart-title {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-container {
+        padding-top: 160px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    .dashboard-header {
+        padding: 1rem 0;
+        margin-bottom: 1.5rem;
+    }
+    
+    .dashboard-title {
+        font-size: 1.8rem;
+    }
+    
+    .admin-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .logout-btn, .export-btn {
+        width: 100%;
+        max-width: 200px;
+        padding: 12px 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        justify-items: center;
+    }
+    
+    .stat-card {
+        padding: 1.5rem;
+        max-width: 100%;
+        width: 100%;
+        min-height: 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .stat-icon {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        text-align: center;
+        line-height: 1.3;
+    }
+    
+    .chart-card, .recent-activity {
+        padding: 1rem;
+    }
+    
+    .chart-container {
+        height: 250px;
+        padding: 0.5rem;
+    }
+    
+    .pie-chart-container {
+        height: 200px;
+        padding: 0.5rem;
+    }
+    
+    .chart-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .activity-item {
+        padding: 0.75rem;
+    }
+    
+    .activity-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+        margin-right: 0.75rem;
+    }
+    
+    .activity-title {
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+    
+    .activity-time {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .dashboard-title {
+        font-size: 1.6rem;
+    }
+    
+    .stat-card {
+        padding: 1.25rem;
+        min-height: 150px;
+    }
+    
+    .stat-icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-number {
+        font-size: 1.6rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .stat-label {
+        font-size: 0.85rem;
+    }
+    
+    .chart-container {
+        height: 200px;
+        padding: 0.25rem;
+    }
+    
+    .pie-chart-container {
+        height: 180px;
+        padding: 0.25rem;
+    }
+    
+    .chart-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .activity-title {
+        font-size: 0.8rem;
+    }
+    
+    .activity-time {
+        font-size: 0.75rem;
+    }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .dashboard-container {
+        padding-top: 100px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        min-height: 140px;
+        padding: 1rem;
+    }
+    
+    .stat-icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .chart-container {
+        height: 220px;
+    }
+    
+    .pie-chart-container {
+        height: 180px;
+    }
+}
+
+/* Chart responsive behavior */
+@media (max-width: 768px) {
+    .chart-container canvas,
+    .pie-chart-container canvas {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .chart-container canvas,
+    .pie-chart-container canvas {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Dark theme specific responsive adjustments */
+[data-theme="dark"] .dashboard-container,
+[data-theme="dark"] .dashboard-header,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .chart-card,
+[data-theme="dark"] .recent-activity,
+[data-theme="dark"] .loading-content {
+    transition: var(--transition-theme);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .stat-card,
+    .logout-btn,
+    .export-btn,
+    .activity-item {
+        transition: none;
+    }
+    
+    .stat-card:hover,
+    .logout-btn:hover,
+    .export-btn:hover {
+        transform: none;
+    }
+    
+    .loading-spinner {
+        animation: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .dashboard-container {
+        padding-top: 0;
+    }
+    
+    .logout-btn,
+    .export-btn {
+        display: none;
+    }
+    
+    .chart-card,
+    .stat-card,
+    .recent-activity {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo-link">
+                    <img src="imgs/homelogo.png" alt="SkillSwap Logo" class="logo">
+                </a>
+            </div>
+            <nav class="nav-links">
+                <span style="color: var(--color-4); font-weight: 600;">Admin Dashboard</span>
+                <div class="theme-toggle">
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+                        <div class="theme-toggle-slider" id="theme-slider">
+                            <span class="theme-icon">☀️</span>
+                        </div>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="container">
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" id="loading-overlay">
+                <div class="loading-content">
+                    <div class="loading-spinner" style="width: 60px; height: 60px; margin: 0 auto 1rem;"></div>
+                    <p>Loading dashboard data...</p>
+                </div>
+            </div>
+
+            <!-- Access Denied -->
+            <div class="access-denied" id="access-denied" style="display: none;">
+                <h1>🚫</h1>
+                <h2>Access Denied</h2>
+                <p>You need to authenticate to access the admin dashboard.</p>
+                <a href="admin.html" class="btn btn-primary">Go to Login</a>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" style="display: none;">
+                <div class="dashboard-header">
+                    <div class="dashboard-nav">
+                        <h1 class="dashboard-title">Admin Dashboard</h1>
+                        <div class="admin-actions">
+                            <span id="admin-welcome" style="color: var(--color-3); margin-right: 1rem;"></span>
+                            <button class="export-btn" onclick="window.dashboard.exportData()">Export Data</button>
+                            <button class="logout-btn" onclick="logout()">Logout</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-number" id="subscribers-count">0</div>
+                        <div class="stat-label">Total Subscribers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👁️</div>
+                        <div class="stat-number" id="visits-count">0</div>
+                        <div class="stat-label">Total Visits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-number" id="revenue-count">$0</div>
+                        <div class="stat-label">Total Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-number" id="conversion-rate">0%</div>
+                        <div class="stat-label">Conversion Rate</div>
+                    </div>
+                </div>
+
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Visits Over Time</h3>
+                        <div class="chart-container">
+                            <canvas id="visitsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Subscription Distribution</h3>
+                        <div class="pie-chart-container">
+                            <canvas id="subscriptionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Stats Grid -->
+                <div class="stats-grid" style="margin-top: 2rem;">
+                    <div id="transaction-summary" class="chart-card"></div>
+                    <div id="coupon-stats" class="chart-card"></div>
+                    <div id="course-stats" class="chart-card"></div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3 class="chart-title">Recent Activity</h3>
+                    <div id="recent-activity">
+                        <!-- Activity items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeSlider = document.getElementById('theme-slider');
+        const themeIcon = document.querySelector('.theme-icon');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+            themeSlider.style.transform = theme === 'dark' ? 'translateX(30px)' : 'translateX(0)';
+        }
+
+        // Logout function
+        function logout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            sessionStorage.removeItem('adminLoginTime');
+            window.location.href = 'admin.html';
+        }
+    </script>
+</body>
+</html>
+
