@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillSwap - Learn New Skills Online</title>
+<link rel="icon" type="image/png" href="imgs/homelogo.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/loading.css">
+<link rel="stylesheet" href="css/chat-widget.css">
+<script src="js/visit-tracker.js"></script>
+</head>
+<body>
+<!-- Loading Screen -->
+<div id="loading-screen">
+<div class="loading-text">
+<span>S</span><span>k</span><span>i</span><span>l</span><span>l</span><span>S</span><span>w</span><span>a</span><span>p</span>
+</div>
+</div>
+
+<!-- Main Content -->
+<div id="main-content" style="display: none;">
+<!-- Header -->
+<header class="header">
+<div class="container">
+<div class="nav-brand">
+<a href="index.html" class="logo-link">
+<img src="imgs/homelogo.png" alt="SkillSwap Logo" class="logo">
+</a>
+</div>
+<nav class="nav-links">
+
+<a href="courses.html" data-translate="courses">Courses</a>
+<a href="testimonials.html" data-translate="testimonials">Testimonials</a>
+<a href="video-courses.html" data-translate="videoCourses">Video Courses</a>
+<a href="about.html" data-translate="about">About</a>
+<a href="contact.html" data-translate="contactUs">Contact Us</a>
+
+<a href="pricing.html" class="pricing-btn" data-translate="pricing">Pricing</a>
+<div class="theme-toggle">
+<button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+<div class="theme-toggle-slider" id="theme-slider">
+<span class="theme-icon">☀️</span>
+</div>
+</button>
+</div>
+</nav>
+</div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+<video class="hero-video" autoplay muted loop>
+<source src="videos/homevideo.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1 class="hero-title" data-translate="heroTitle">SkillSwap Learning</h1>
+<p class="hero-description" data-translate="heroDescription">
+Enter in this online course where you can learn new skills by tasks per week or every 3 days or by videos online.
+</p>
+<div class="hero-buttons">
+<a href="pricing.html" class="btn btn-primary" data-translate="pricing">Pricing</a>
+<a href="courses.html" class="btn btn-secondary" data-translate="tasks">Tasks</a>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <!-- Company Info -->
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="imgs/homelogo.png" alt="SkillSwap Logo" class="footer-logo-img">
+                    <h3 data-translate="skillswap">SkillSwap</h3>
+                </div>
+                <p class="footer-description" data-translate="footerDescription">
+                    Learn new skills online with our comprehensive courses and expert instructors.
+                </p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4 data-translate="quickLinks">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-translate="home">Home</a></li>
+                    <li><a href="courses.html" data-translate="courses">Courses</a></li>
+                    <li><a href="video-courses.html" data-translate="videoCourses">Video Courses</a></li>
+                    <li><a href="about.html" data-translate="about">About</a></li>
+                    <li><a href="contact.html" data-translate="contactUs">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-section">
+                <h4 data-translate="support">Support</h4>
+                <ul class="footer-links">
+                    <li><a href="pricing.html" data-translate="pricing">Pricing</a></li>
+                    <li><a href="testimonials.html" data-translate="testimonials">Testimonials</a></li>
+                    <li><a href="#" data-translate="privacyPolicy">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-section">
+                <h4 data-translate="contactInfo">Contact Info</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@skillswap.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-translate="address">801 5th Ave Suite 2100, Seattle, WA 98104, US</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>© 2024 SkillSwap. <span data-translate="allRightsReserved">All rights reserved.</span></p>
+                <div class="footer-bottom-links">
+                    <a href="terms-of-service.html" data-translate="termsOfService">Terms of Service</a>
+                    <a href="privacy-policy.html" data-translate="privacyPolicy">Privacy Policy</a>
+                    <a href="cookie-policy.html" data-translate="cookiePolicy">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+<script src="js/header.js"></script>
+<script src="js/translations.js"></script>
+<script src="js/translator.js"></script>
+<script src="js/main.js"></script>
+<script src="js/chat-widget.js"></script>
+</body>
+</html>

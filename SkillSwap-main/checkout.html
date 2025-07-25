@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title data-translate="checkout-title">SkillSwap - Complete Your Purchase</title>
+    <link rel="icon" type="image/png" href="imgs/homelogo.png">
+    <meta name="description" content="Complete your SkillSwap subscription purchase" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/chat-widget.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="js/checkout.js" defer></script>
+    <script src="js/visit-tracker.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo-link">
+                    <img src="imgs/homelogo.png" alt="SkillSwap Logo" class="logo">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="container">
+            <div class="checkout-header">
+                <h1 data-translate="completePurchase">Complete Your Purchase</h1>
+                <p data-translate="upgradeDesc">You're about to upgrade to SkillSwap Premium!</p>
+            </div>
+            
+            <div class="checkout-content">
+                <div class="order-summary">
+                    <h3 data-translate="orderSummary">Order Summary</h3>
+                    <div class="plan-details">
+                        <div class="plan-info">
+                            <h4 data-translate="skillswap-premium">SkillSwap Premium</h4>
+                            <p data-translate="annualSubscription">Annual Subscription</p>
+                        </div>
+                        <div class="plan-price" id="original-price">$100.00</div>
+                    </div>
+                    
+                    <!-- Discount Display -->
+                    <div class="discount-display" id="discount-display" style="display: none;">
+                        <div class="discount-info">
+                            <span class="discount-label">Discount Applied:</span>
+                            <span class="discount-code" id="applied-code"></span>
+                        </div>
+                        <div class="discount-amount" id="discount-amount">-$0.00</div>
+                    </div>
+                    
+                    <!-- Total Price -->
+                    <div class="total-price">
+                        <div class="total-info">
+                            <span class="total-label">Total:</span>
+                        </div>
+                        <div class="total-amount" id="total-price">$100.00</div>
+                    </div>
+                    
+                    <div class="features-list">
+                        <h4 data-translate="whatsIncluded">What's included:</h4>
+                        <ul>
+                            <li data-translate="unlimitedSessions">✓ Unlimited skill learning sessions</li>
+                            <li data-translate="noDelay">✓ No skill learning delay</li>
+                            <li data-translate="infiniteSelections">✓ Infinite selections of skills</li>
+                            <li data-translate="premiumVideos">✓ Premium video courses</li>
+                            <li data-translate="prioritySupport">✓ Priority support</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="payment-form">
+                    <div id="checkout">
+                        <!-- Stripe Checkout will insert the payment form here -->
+                    </div>
+                    
+                    <!-- Coupon Section -->
+                    <div class="coupon-section">
+                        <h3 class="coupon-title" data-translate="addCoupon">Add Coupon</h3>
+                        <div class="coupon-container">
+                            <div class="coupon-input-group">
+                                <input 
+                                    type="text" 
+                                    id="coupon-input" 
+                                    class="coupon-input" 
+                                    placeholder="Enter coupon code" 
+                                    data-translate-placeholder="enterCoupon"
+                                >
+                                <button 
+                                    type="button" 
+                                    id="apply-coupon" 
+                                    class="apply-coupon-btn"
+                                    data-translate="applyCoupon"
+                                >
+                                    Apply
+                                </button>
+                            </div>
+                            <div class="coupon-message" id="coupon-message"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Methods Section -->
+                    <div class="payment-methods">
+                        <p class="payment-text" data-translate="securePayment">Secure payment powered by</p>
+                        <div class="payment-logos">
+                            <img src="https://cdn.worldvectorlogo.com/logos/visa-10.svg" alt="Visa" class="payment-logo">
+                            <img src="https://cdn.worldvectorlogo.com/logos/mastercard-6.svg" alt="Mastercard" class="payment-logo">
+                            <img src="https://cdn.worldvectorlogo.com/logos/stripe-4.svg" alt="Stripe" class="payment-logo">
+                        </div>
+                        <div class="security-badges">
+                            <div class="security-badge">
+                                <span class="lock-icon">🔒</span>
+                                <span data-translate="sslSecured">SSL Secured</span>
+                            </div>
+                            <div class="security-badge">
+                                <span class="shield-icon">🛡️</span>
+                                <span data-translate="encryption">256-bit Encryption</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<script src="js/header.js"></script>
+<script src="js/coupon.js"></script>
+<script src="js/translations.js"></script>
+<script src="js/translator.js"></script>
+<script src="js/main.js"></script>
+<script src="js/chat-widget.js"></script>
+</body>
+</html>
