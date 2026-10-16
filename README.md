@@ -6,6 +6,8 @@
 
 **Learn a new skill a little at a time, with short tasks and video lessons.**
 
+🏆 **Hackathon winner** · 🤖 **AI-coded in 2025**
+
 ### [🔗 Live demo](https://en0gsh1.github.io/skilswap/)
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
@@ -24,6 +26,12 @@
 SkillSwap is a learning site where you pick a skill (cooking, basketball, computing, guitar and more) and learn it step by step: through tasks every few days, every week, or by watching video lessons.
 
 Everything runs in the browser. No backend, no build step.
+
+## The story
+
+SkillSwap was built in 2025 and won a hackathon 🏆
+
+It's AI-coded: I came up with the idea, planned the pages and features, and built it with AI coding tools.
 
 ## Features
 
