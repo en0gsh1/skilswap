@@ -6,7 +6,7 @@
 
 **Learn a new skill a little at a time, with short tasks and video lessons.**
 
-🏆 **Hackathon winner** · 🤖 **AI-coded in 2025**
+🏆 **1st place at the JCoders hackathon** · 🤖 **AI-coded in 2025**
 
 ### [🔗 Live demo](https://en0gsh1.github.io/skilswap/)
 
@@ -29,7 +29,7 @@ Everything runs in the browser. No backend, no build step.
 
 ## The story
 
-SkillSwap was built in 2025 and won a hackathon 🏆
+SkillSwap was built in 2025 for the **JCoders hackathon**, where it won **first place** 🏆
 
 It's AI-coded: I came up with the idea, planned the pages and features, and built it with AI coding tools.
 
